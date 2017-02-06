@@ -1,7 +1,7 @@
 body {
     background: #00484b;
     color: #fff;
-
+    font-family:"微软雅黑";
 }
 
 * {
@@ -19,6 +19,7 @@ body {
     max-width: 700px;
     margin: 0 auto;
     position: relative;
+    padding: 0 10px;
 }
 
 h1 {
@@ -128,10 +129,19 @@ button {
     cursor: pointer;
     color: #333;
 }
-
-
-
-
+.action{
+    color: #888;
+    font-size: 90%;
+}
+.action:hover{
+    color: #333;
+}
+.fr{
+    float: right;
+}
+.task-content{
+    margin-left: 10px;
+}
 
 
 
