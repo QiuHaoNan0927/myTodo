@@ -44,21 +44,26 @@
 
     //查看task详情
     function show_task_detail(index) {
+        //生成详情模版
         render_task_detail(index);
         current_index = index;
+        // 显示详情模版task_detail
         $task_detail.show();
+        // 显示详情模版task_detail_mask
         $task_detail_mask.show();
     }
 
+    //更新task
     function update_task(index, data) {
         if (!index || !task_list[index]) {
             return;
         }
         task_list[index] = data;
         refresh_task_list();
-        console.log(task_list[index])
+        // console.log(task_list[index])
     }
 
+    //隐藏task详情
     function hide_task_detail() {
         $task_detail.hide();
         $task_detail_mask.hide();
@@ -81,17 +86,22 @@
             '</div>' +
             '</div>' +
             '<div class="remind input_item">' +
-            '<input class="input_item" type="date" name="remind_date" value="'+ item.remind_date +'">' +
+            '<input class="input_item" type="date" name="remind_date" value="' + item.remind_date + '">' +
             '<button type="submit">更新</button>' +
             '</div>' +
             '</form>';
+        //用新模板替换旧模板
         $task_detail.html(null);
         $task_detail.html(tpl);
-        console.log(item)
+        // console.log(item)
+        // 选中其中的form元素
         update_form = $task_detail.find('form');
-        $task_detail_content=update_form.find('.content');
-        $task_detail_content_input=update_form.find('[name=content]');
-        $task_detail_content.on("dblclick",function () {
+        //选中显示task内容元素
+        $task_detail_content = update_form.find('.content');
+        //选中显示task——input内容元素
+        $task_detail_content_input = update_form.find('[name=content]');
+        //双击内容显示input，隐藏本身
+        $task_detail_content.on("dblclick", function () {
             $task_detail_content.hide();
             $task_detail_content_input.show();
         })
@@ -146,7 +156,7 @@
         $task_list.html('');
         for (var i = 0; i < task_list.length; i++) {
             var $task = render_task_tpl(task_list[i], i);
-            $task_list.append($task);
+            $task_list.prepend($task);
         }
         $task_delete_trigger = $('.action.delete');
         $task_detail_trigger = $('.action.detail');
@@ -156,11 +166,16 @@
 
     //查找并监听所有删除按钮的点击事件
     function listen_task_delete() {
+        var index;
+        $('.task-item').on('dblclick', function () {
+            index = $(this).data('index');
+            show_task_detail(index);
+        })
         $task_delete_trigger.on('click', function () {
             var $this = $(this);
             //找到删除按钮所在的task
             var $item = $this.parent().parent();
-            var index = $item.data('index');
+            index = $item.data('index');
             // 确认删除
             var tmp = confirm('确定删除？');
             tmp ? delete_task_list(index) : null;
