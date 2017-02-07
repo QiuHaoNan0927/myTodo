@@ -2,8 +2,12 @@
     'use strict';
     var $form_add_task = $('.add-task'),
         task_list = [],
+        current_index,
+        update_form,
         $task_delete_trigger,
         $task_detail_trigger,
+        $task_detail_content,
+        $task_detail_content_input,
         $task_detail = $(".task-detail"),
         $task_detail_mask = $(".task-detail-mask");
     // store.clear();
@@ -35,14 +39,24 @@
             var $item = $this.parent().parent();
             var index = $item.data('index');
             show_task_detail(index);
-            console.log(123)
         })
     }
 
+    //查看task详情
     function show_task_detail(index) {
         render_task_detail(index);
+        current_index = index;
         $task_detail.show();
         $task_detail_mask.show();
+    }
+
+    function update_task(index, data) {
+        if (!index || !task_list[index]) {
+            return;
+        }
+        task_list[index] = data;
+        refresh_task_list();
+        console.log(task_list[index])
     }
 
     function hide_task_detail() {
@@ -57,21 +71,40 @@
         }
         var item = task_list[index];
         var tpl = '<form>' +
-            '<div class="content">' +
+            '<div class="content input_item">' +
             item.content +
             '</div>' +
+            '<div class="input_item"><input style="display: none;" type="text" name="content" value="' + (item.content || '') + '"></div>' +
             '<div>' +
-            '<div class="desc">' +
-            '<textarea value="' + item.desc + '"></textarea>' +
+            '<div class="desc input_item">' +
+            '<textarea name="desc">' + (item.desc || ' ') + '</textarea>' +
             '</div>' +
             '</div>' +
-            '<div class="remind">' +
-            '<input type="date">' +
-            '<button type="button" name="button" type="submit">submit</button>' +
+            '<div class="remind input_item">' +
+            '<input class="input_item" type="date" name="remind_date" value="'+ item.remind_date +'">' +
+            '<button type="submit">更新</button>' +
             '</div>' +
             '</form>';
         $task_detail.html(null);
         $task_detail.html(tpl);
+        console.log(item)
+        update_form = $task_detail.find('form');
+        $task_detail_content=update_form.find('.content');
+        $task_detail_content_input=update_form.find('[name=content]');
+        $task_detail_content.on("dblclick",function () {
+            $task_detail_content.hide();
+            $task_detail_content_input.show();
+        })
+        update_form.on('submit', function (e) {
+            e.preventDefault();
+            var data = {};
+            data.content = $(this).find('[name=content]').val();
+            data.desc = $(this).find('[name=desc]').val();
+            data.remind_date = $(this).find('[name=remind_date]').val();
+            update_task(index, data);
+            hide_task_detail();
+            console.log(data)
+        })
     }
 
     function init() {
