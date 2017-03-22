@@ -2,32 +2,34 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="node_modules/jquery/dist/jquery.js" charset="utf-8"></script>
-    <script src="node_modules/store/store.min.js"></script>
-    <link rel="stylesheet" href="node_modules/normalize.css/normalize.css">
-    <link rel="stylesheet" href="node_modules\jquery-datetimepicker\build\jquery.datetimepicker.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <title>my Todo file</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="js/jquery.js" charset="utf-8"></script>
+  <script src="js/store.min.js"></script>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/jquery.datetimepicker.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <title>my Todo file</title>
 </head>
 
 <body>
-<div class="container"><!--总容器开始-->
+  <div class="container">
+    <!--总容器开始-->
     <h1>My Todo</h1>
     <form class="add-task">
-        <input name="content" type="text" placeholder="e.g. 下午记得买菜" autofocus autocomplete="off">
-        <button type="submit">提交</button>
+      <input name="content" type="text" placeholder="e.g. 下午记得买菜" autofocus autocomplete="off">
+      <button type="submit">提交</button>
     </form>
-    <div class="task-list"><!--清单列表开始-->
+    <div class="task-list">
+      <!--清单列表开始-->
     </div>
     <div class="task-detail-mask"></div>
     <div class="task-detail">
     </div>
-</div>
-<script src="node_modules/jquery-datetimepicker/build/jquery.datetimepicker.full.js"></script>
-<script src="js/script.js" charset="utf-8"></script>
+  </div>
+  <script src="js/jquery.datetimepicker.full.js"></script>
+  <script src="js/script.js" charset="utf-8"></script>
 </body>
 
 </html>
